@@ -1,17 +1,28 @@
 <template>
   <div class="nav">
-    <router-link to="/label">标签</router-link>
+    <router-link to="/label">
+      <Icon name="lable"></Icon>
+      标签
+    </router-link>
     |
-    <router-link to="/money">记账</router-link>
+    <router-link to="/money">
+      <Icon name="money"></Icon>
+      记账
+    </router-link>
     |
-    <router-link to="/statistics">统计</router-link>
+    <router-link to="/statistics">
+      <Icon name="Statistics"></Icon>
+      统计
+    </router-link>
   </div>
 
 </template>
 
-<script>
+<script lang="ts">
+
 export default {
-  name: 'Nav'
+  name: 'Nav',
+
 }
 </script>
 
