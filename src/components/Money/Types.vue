@@ -8,23 +8,21 @@
 
 </template>
 
-<script lang="js">
-export default {
-  name: 'Types',
-  data(){
-    return {
-      type: '-'
+<script lang="ts">
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component
+export default class Types extends Vue {
+  type = '-';
+  selectType(type: string) {
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is unknown');
     }
-  },
-  methods: {
-    selectType(type) {
-      if(type !== '-' && type !== '+') {
-        throw new Error('type is unknown')
-      }
-      this.type = type
-    }
+    this.type = type;
   }
-};
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -33,6 +31,7 @@ export default {
   display: flex;
   text-align: center;
   font-size: 24px;
+
   li {
     width: 50%;
     height: 64px;
@@ -40,6 +39,7 @@ export default {
     justify-content: center;
     align-items: center;
     position: relative;
+
     &.selected::after {
       content: '';
       position: absolute;
