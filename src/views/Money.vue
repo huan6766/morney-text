@@ -1,36 +1,51 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad></NumberPad>
-    <Types></Types>
-    <Nodes></Nodes>
-    <Tags :data-source="tags"></Tags>
-
+    {{record}}
+    <NumberPad :value.sync="record.amount"></NumberPad>
+    <Types :value.sync="record.type"></Types>
+    <Nodes @update:value="onUpdateNotes"></Nodes>
+    <Tags :data-source.sync="tags" @update:value="onUpdateTags"></Tags>
 
 
   </Layout>
 </template>
 
-<script lang="js">
+<script lang="ts">
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Nodes from '@/components/Money/Nodes.vue';
 import Tags from '@/components/Money/Tags.vue';
-export default {
-  name: 'Money',
+
+type Record = {
+  tags: string[]
+  notes: string
+  type: string
+  amount: number
+}
+
+@Component({
   components: {Tags, Nodes, Types, NumberPad},
-  data() {
-    return {
-      tags: ['衣', '食', '住', '行']
-    }
+})
+export default class Money extends Vue {
+  tags = ['衣', '食', '住', '行']
+  record: Record = {tags: [], notes: '', type: '-', amount: 0}
+
+  onUpdateTags(value: string[]) {
+    this.record.tags = value
   }
-};
+  onUpdateNotes(value: string) {
+    this.record.notes = value
+  }
+}
 </script>
 
 <style lang="scss">
-  .layout-content {
-    display: flex;
-    flex-direction: column-reverse;
-  }
+.layout-content {
+  display: flex;
+  flex-direction: column-reverse;
+}
 </style>
 
 <style lang="scss" scoped>
