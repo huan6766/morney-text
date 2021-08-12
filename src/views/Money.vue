@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{ recordList }}
     <NumberPad :value.sync="record.amount" @submit="saveRecord"></NumberPad>
     <Types :value.sync="record.type"></Types>
     <Nodes @update:value="onUpdateNotes"></Nodes>
@@ -18,11 +17,15 @@ import Types from '@/components/Money/Types.vue';
 import Nodes from '@/components/Money/Nodes.vue';
 import Tags from '@/components/Money/Tags.vue';
 
+const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]')
+
+
 type Record = {
   tags: string[]
   notes: string
   type: string
   amount: number
+  createAt?: Date
 }
 
 @Component({
@@ -31,7 +34,7 @@ type Record = {
 export default class Money extends Vue {
   tags = ['衣', '食', '住', '行'];
   record: Record = {tags: [], notes: '', type: '-', amount: 0};
-  recordList: Record[] = [];
+  recordList: Record[] = recordList;
 
   onUpdateTags(value: string[]) {
     this.record.tags = value;
@@ -42,13 +45,14 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    const record2 = JSON.parse(JSON.stringify(this.record))
+    const record2: Record = JSON.parse(JSON.stringify(this.record));
+    record2.createAt = new Date();
     this.recordList.push(record2);
   }
 
   @Watch('recordList')
   onRecordListChange() {
-    window.localStorage.setItem('recordList', JSON.stringify(this.recordList))
+    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
   }
 }
 </script>
