@@ -22,6 +22,7 @@ import tagListModel from '@/models/tagListModel';
 
 const recordList = recordListModel.fetch()
 const tagList = tagListModel.fetch()
+console.log('...', tagList)
 
 
 
