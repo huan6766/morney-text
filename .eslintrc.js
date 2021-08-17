@@ -19,6 +19,7 @@ module.exports = {
   "globals":{  //与上方的rules是同级的
     "__WebpackModuleApi": true,
     'RecordItem': true,
+    'Tag': true
   },
   overrides: [
     {
