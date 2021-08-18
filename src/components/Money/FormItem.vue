@@ -13,14 +13,15 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
+
 @Component
 export default class FormItem extends Vue {
-  @Prop({default: ''}) readonly value!: string
+  @Prop({default: ''}) readonly value!: string;
+  @Prop({required: true}) fieldName!: string;
+  @Prop() placeholder?: string;
 
-  @Prop({required: true}) fieldName!: string
-  @Prop() placeholder?: string
   onValueChange(value: string) {
-    this.$emit('update:value', value)
+    this.$emit('update:value', value);
   }
 }
 </script>
@@ -31,9 +32,11 @@ export default class FormItem extends Vue {
   padding-left: 16px;
   display: flex;
   align-items: center;
+
   .name {
     padding-right: 16px;
   }
+
   input {
     height: 40px;
     flex-grow: 1;
