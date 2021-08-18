@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import Types from '@/components/Money/Types'
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
 import Tabs from '@/components/Tabs'
@@ -21,7 +20,7 @@ import recordTypeList from '@/constants/recordTypeList'
 
 
 @Component({
-  components: {Tabs, Types},
+  components: {Tabs},
 })
 export default class Statistics extends Vue {
   type = '-'
