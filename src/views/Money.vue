@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    {{record}}
+    {{ record }}
     <NumberPad :value.sync="record.amount" @submit="saveRecord"></NumberPad>
     <Types :value.sync="record.type"></Types>
     <div class="notes">
@@ -22,22 +22,18 @@ import Tags from '@/components/Money/Tags.vue';
 // import model from '@/model.js'
 
 
-
-
-
 @Component({
-  components: {Tags, FormItem, Types, NumberPad},
-  computed: {
-    recordList() {
-      return this.$store.state.recordList
-    }
-  }
+  components: {Tags, FormItem, Types, NumberPad}
 })
 export default class Money extends Vue {
   record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
+  get recordList() {
+    return this.$store.state.recordList;
+  }
+
   created() {
-    this.$store.commit('fetchRecords')
+    this.$store.commit('fetchRecords');
   }
 
   onUpdateNotes(value: string) {
@@ -45,7 +41,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    this.$store.commit('createRecord', this.record)
+    this.$store.commit('createRecord', this.record);
   }
 }
 </script>
@@ -59,7 +55,8 @@ export default class Money extends Vue {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-  .notes {
-    padding: 12px 0;
-  }
+
+.notes {
+  padding: 12px 0;
+}
 </style>
